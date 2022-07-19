@@ -1,0 +1,30 @@
+body {
+margin: 0;
+padding: 0;
+background-color: rgb(171, 165, 165);
+}
+
+.box {
+    background-color: aqua;
+    height: 300px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    margin: 80px  600px;
+    border-radius: 10px;
+    text-align:center;
+    padding-top: 18px;
+}
+
+.title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: aqua;
+    text-align: center;
+    height: 80px;
+    width: 300px;
+    margin: 70px 600px;
+    border-radius: 10px;
+
+}
