@@ -1,6 +1,11 @@
 const API_KEY = '62138210cea32ede9ef8fe48c9076214';
 const WEATHER_URL = 'https://api.openweathermap.org/data/2.5/weather';
 const GEO_URL = 'http://api.openweathermap.org/geo/1.0';
+let info;
+let containerData;
+let contentId;
+let dias;
+let vientos;
 const countriesData = {
   chile: ['santiago', 'valdivia', 'puerto montt'],
   colombia: ['cali', 'bogota', 'medellin'],
@@ -24,6 +29,16 @@ async function getWeather(lat, lon) {
       .then((response) => {
         console.log(response);
         resolve(response);
+        var temperatura;
+        var viento;
+        var dia;
+        temperatura = response.data.main.temp;
+        console.log(temperatura);//
+        viento = response.data.wind.speed;
+        console.log(viento); //
+        dia = response.data.weather[0].main;
+        console.log(dia); //
+        refresHtml(temperatura,viento,dia);
       });
   });
 }
@@ -58,36 +73,20 @@ function changeRegions(countrySelected) {
   populateRegions(regionSelect, regionsData);
 }
 
-
-function searchAgain() {
-  const div = document.getElementById('contentId');
-  div.innerHTML = `
-  <form>
-    <select id="countriesId">
-      <option value="" selected disabled hidden>Escoge el país</option>
-    </select>
-    <select id="regionsId">
-      <option value="" selected disabled hidden>Escoge tu región</option>
-    </select>
-  </form>`;
-  const countrySelect = document.getElementById('countriesId');
-  populateCountries(countrySelect);
-  //agregamos event en el form
-  countrySelect.addEventListener('change', (event) => {
-    changeRegions(event.target.value);
-  });
+function search() {
+  const regionSelect = document.getElementById('regionsId');
+  const selectedIndex = regionSelect.options.selectedIndex;
+  const regionSelected = regionSelect.options[selectedIndex].value;
+  console.log(regionSelected);
+  // llamar api para obtener coordenadas F
+ getCoordinates(regionSelected);
 }
 
-function search() {
-  // llamar api para obtener coordenadas F
+// button buscar otros 
 
-  // llamar a api para obtener clima en base a coordenadas F
-
-  // crear nuestro string template <div>${temperatura}</div> F
-    
-  // reemplazar el div del form por el div del resultado F
-
-  // agregar evento a botón buscar de nuevo F
+function searchOther() {
+  containerData.style.display="none";
+  contentId.style.display="block";
 }
 
 async function getCoordinates(region) {
@@ -96,11 +95,20 @@ async function getCoordinates(region) {
       .then((response) => {
         console.log(response);
         resolve(response);
+        var dataRegions = response.data[0];
+        console.log(dataRegions); // borrar despues
+        getWeather(dataRegions.lat, dataRegions.lon);
       });
   });
 }
 
 function main() {
+  info = document.getElementById('info');
+  dias = document.getElementById('dia');
+  vientos = document.getElementById('viento');
+  contentId = document.getElementById('contentId');
+  containerData = document.getElementById('container-data');
+  containerData.style.display="none";
   // populamos countries
   const countrySelect = document.getElementById('countriesId');
   populateCountries(countrySelect);
@@ -111,7 +119,23 @@ function main() {
   // agregamos evento al buscar
 }
 
+function refresHtml(temperatura,viento,dia) {
+  console.log(temperatura,viento,dia);
+  info.innerHTML = toCelsius(temperatura);
+  vientos.innerHTML = viento;
+  dias.innerHTML = dia;
+  console.log(dia); //
+  console.log(viento);//
+  console.log(info);
+  contentId.style.display="none";
+  containerData.style.display="block";
+}
+
+function toCelsius(kelvin) {
+  return Math.round(kelvin - 273.15);
+}
+
+
 window.onload = () => {
   main();
-  getWeather();
 }

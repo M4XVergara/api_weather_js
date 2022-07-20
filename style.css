@@ -6,11 +6,11 @@ background-color: rgb(171, 165, 165);
 
 .box {
     background-color: aqua;
-    height: 300px;
+    height: 200px;
     width: 300px;
     display: flex;
     flex-direction: column;
-    margin: 80px  600px;
+    margin: 60px  600px;
     border-radius: 10px;
     text-align:center;
     padding-top: 18px;
@@ -24,7 +24,11 @@ background-color: rgb(171, 165, 165);
     text-align: center;
     height: 80px;
     width: 300px;
-    margin: 70px 600px;
+    margin: 70px 600px 20PX ;
     border-radius: 10px;
 
+}
+
+.btn {
+    margin-top: 20px;
 }
