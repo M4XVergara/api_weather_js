@@ -1,6 +1,6 @@
 const API_KEY = '62138210cea32ede9ef8fe48c9076214';
 const WEATHER_URL = 'https://api.openweathermap.org/data/2.5/weather';
-const GEO_URL = 'http://api.openweathermap.org/geo/1.0';
+const GEO_URL = 'https://api.openweathermap.org/geo/1.0';
 let info;
 let containerData;
 let contentId;
