@@ -1,36 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
-  <script src="main.js" type="text/javascript"></script>
+  <script src="main.js" type="text/javascript" defer></script>
   <title>Clima</title>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
   <div class="title">
-    <h2> App del Clima </h2>
+    <h2> &#9748 Descubre el Clima &#127774 </h2>
   </div>
   <div class="box">
     <div id="container-data">
-      <div class="info" id="info"></div>
+      <div class="fila-temp">
+        <img src="images/termometro (1).png" class="temp-img" id="temp-img" />
+        <div class="info" id="info"></div>
+      </div>
+     <div class="fila-dia">
       <div class="dia" id="dia"></div>
-      <div class="viento" id="viento" ></div>
-      <button onclick="searchOther()"> Buscar otro </button>
+      <img src="" alt="" id="image-dia">
+     </div>
+      <div class="viento-temp">
+        <img src="images/viento.png" class="viento-img" id="viento-img" />
+        <div class="viento" id="viento"></div>
+        <P class="viento-km">KM</P>
+      </div>
+      <button onclick="searchOther()" id="btn1"> Buscar otro </button>
     </div>
     <div id="contentId">
-      <form>
-        <select id="countriesId">
-          <option value="" selected disabled hidden>Escoge el país</option>
-        </select>
-        <select id="regionsId">
-          <option value="" selected disabled hidden>Escoge tu región</option>
-        </select>
-      </form>
-      <button onclick="search()"> Buscar </button>
+      <input type="text" id="city" placeholder="Ingresa la Región">
+      <button onclick="search()" id="btn"> Buscar </button>
     </div>
   </div>
 </body>

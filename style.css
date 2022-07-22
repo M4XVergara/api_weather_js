@@ -1,34 +1,112 @@
 body {
-margin: 0;
-padding: 0;
-background-color: rgb(171, 165, 165);
+  background-image: url(images/fondo.jpg);
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  padding: 0;
 }
+/* DIV */
 
 .box {
-    background-color: aqua;
-    height: 200px;
-    width: 300px;
-    display: flex;
-    flex-direction: column;
-    margin: 60px  600px;
-    border-radius: 10px;
-    text-align:center;
-    padding-top: 18px;
+  background-color: aqua;
+  height: 300px;
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 10px;
+  text-align: center;
+  margin-top: 50px;
 }
 
 .title {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background-color: aqua;
-    text-align: center;
-    height: 80px;
-    width: 300px;
-    margin: 70px 600px 20PX ;
-    border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: rgba(140, 226, 226, 0.747);
+  text-align: center;
+  height: 80px;
+  width: 300px;
+  border-radius: 10px;
+  margin-top: 40px;
+}
+
+#contentId {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
+/* Imagenes  */
+
+.fila-temp {
+  display: flex;
+  flex-direction: row;
+}
+
+.temp-img {
+  height: 70px;
+  width: 70px;
+  margin: 0px 0px 35px 30px;
+}
+
+.viento-temp {
+  display: flex;
+  flex-direction: row;
+}
+
+.viento-img {
+  height: 70px;
+  width: 70px;
+  margin: 0px 0px 0px 30px;
+}
+
+/* Div datos temperatura */
+
+.container-data {
+  display: flex;
 
 }
 
-.btn {
-    margin-top: 20px;
+.info {
+  font-size: 35px;
+  margin-top: 5px;
+
+}
+
+.viento {
+  font-size: 45px;
+}
+
+.viento-km {
+  padding-left: 15px;
+  font-size: 18px;
+}
+/* button style */
+
+#btn {
+  margin: 10px;
+  height: 30px;
+  width: 100px;
+  border-radius: 10px;
+}
+
+#btn1 {
+  margin-top: 10px;
+  height: 30px;
+  width: 200px;
+  border-radius: 10px;
+}
+
+/* input */
+
+#city {
+ height: 30px;
+ width: 300px;
+ text-align: center;
+ margin: 20px;
+ border-radius: 10px;
 }

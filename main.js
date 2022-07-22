@@ -6,22 +6,8 @@ let containerData;
 let contentId;
 let dias;
 let vientos;
-const countriesData = {
-  chile: ['santiago', 'valdivia', 'puerto montt'],
-  colombia: ['cali', 'bogota', 'medellin'],
-}
-
-function populateCountries(countrySelect) {
-  let keys = Object.keys(countriesData);
-
-  for (let i = 0; i < keys.length; i++) {
-    const element = keys[i];
-    let option = document.createElement('option');
-    option.value = element;
-    option.innerHTML = element;
-    countrySelect.appendChild(option);
-  }
-}
+let tempDia;
+let city;
 
 async function getWeather(lat, lon) {
   return new Promise((resolve, reject) => {
@@ -33,53 +19,15 @@ async function getWeather(lat, lon) {
         var viento;
         var dia;
         temperatura = response.data.main.temp;
-        console.log(temperatura);//
         viento = response.data.wind.speed;
-        console.log(viento); //
         dia = response.data.weather[0].main;
-        console.log(dia); //
         refresHtml(temperatura,viento,dia);
       });
   });
 }
 
-function removeOptions(select) {
-  select.options.length = 0;
-}
-
-function populateRegions(regionSelect, regions) {
-  let option = document.createElement('option');
-  option.value = '';
-  option.innerHTML = 'Escoge tu región';
-  regionSelect.appendChild(option);
-
-  for (let i = 0; i < regions.length; i++) {
-    const element = regions[i];
-    option = document.createElement('option');
-    option.value = element;
-    option.innerHTML = element;
-    regionSelect.appendChild(option);
-  }
-}
-
-function changeRegions(countrySelected) {
-  console.log('countrySelected: ' + countrySelected);
-
-  const regionSelect = document.getElementById('regionsId');
-  const regionsData = countriesData[countrySelected];
-  console.log('regionData: ' + regionsData);
-
-  removeOptions(regionSelect);
-  populateRegions(regionSelect, regionsData);
-}
-
 function search() {
-  const regionSelect = document.getElementById('regionsId');
-  const selectedIndex = regionSelect.options.selectedIndex;
-  const regionSelected = regionSelect.options[selectedIndex].value;
-  console.log(regionSelected);
-  // llamar api para obtener coordenadas F
- getCoordinates(regionSelected);
+  getCoordinates(city.value);
 }
 
 // button buscar otros 
@@ -96,7 +44,6 @@ async function getCoordinates(region) {
         console.log(response);
         resolve(response);
         var dataRegions = response.data[0];
-        console.log(dataRegions); // borrar despues
         getWeather(dataRegions.lat, dataRegions.lon);
       });
   });
@@ -108,15 +55,9 @@ function main() {
   vientos = document.getElementById('viento');
   contentId = document.getElementById('contentId');
   containerData = document.getElementById('container-data');
+  tempDia = document.getElementById('image-dia');
+  city = document.getElementById('city');
   containerData.style.display="none";
-  // populamos countries
-  const countrySelect = document.getElementById('countriesId');
-  populateCountries(countrySelect);
-  //agregamos event en el form
-  countrySelect.addEventListener('change', (event) => {
-    changeRegions(event.target.value);
-  });
-  // agregamos evento al buscar
 }
 
 function refresHtml(temperatura,viento,dia) {
@@ -124,17 +65,32 @@ function refresHtml(temperatura,viento,dia) {
   info.innerHTML = toCelsius(temperatura);
   vientos.innerHTML = viento;
   dias.innerHTML = dia;
-  console.log(dia); //
-  console.log(viento);//
-  console.log(info);
   contentId.style.display="none";
   containerData.style.display="block";
+  if (dia == 'Clouds') {
+    tempDia.src = 'images/nube.png'
+
+  } else if (dia =='Clear') {
+    tempDia.src =  'images/sol.png'
+ }
+   else if (dia =='Drizzle') {
+    tempDia.src = 'images/lluvia.png'
+ }
+   else if (dia =='Rain') {
+    tempDia.src = 'images/lluvia.png'
+ }
+   else if (dia =='Snow') {
+    tempDia.src = 'images/nieve.png'
+ }
+
+   else { dia == 'Default' 
+    tempDia.src = 'images/default'
+  } ;
 }
 
 function toCelsius(kelvin) {
   return Math.round(kelvin - 273.15);
 }
-
 
 window.onload = () => {
   main();
