@@ -10,27 +10,30 @@ body {
 /* DIV */
 
 .box {
-  background-color: aqua;
+  background-color: rgba(253, 255, 255, 0.662);
   height: 300px;
   width: 350px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   border-radius: 10px;
   text-align: center;
   margin-top: 50px;
+  box-shadow: 3px 4px 10px 10px ;
 }
 
 .title {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: rgba(140, 226, 226, 0.747);
+  background-color: rgba(255, 255, 255, 0.747);
   text-align: center;
   height: 80px;
   width: 300px;
   border-radius: 10px;
   margin-top: 40px;
+  box-shadow: 5px 5px 5px 5px ; 
 }
 
 #contentId {
@@ -50,7 +53,7 @@ body {
 .temp-img {
   height: 70px;
   width: 70px;
-  margin: 0px 0px 35px 30px;
+  margin: 0px 0px 0px 30px;
 }
 
 .viento-temp {
@@ -61,7 +64,13 @@ body {
 .viento-img {
   height: 70px;
   width: 70px;
-  margin: 0px 0px 0px 30px;
+  margin: 0px 0px 0px 20px;
+}
+
+.image-dia {
+  height: 70px;
+  width: 70px;
+  margin-left: 190px;
 }
 
 /* Div datos temperatura */
@@ -85,6 +94,11 @@ body {
   padding-left: 15px;
   font-size: 18px;
 }
+
+.dia {
+  margin-left: 190px;
+  font-size: 25px;
+}
 /* button style */
 
 #btn {
@@ -101,6 +115,18 @@ body {
   border-radius: 10px;
 }
 
+/*button hover */
+
+#btn:hover {
+  background-color: rgba(81, 81, 218, 0.763);
+  border: solid white 1px;
+}
+
+#btn1:hover {
+  background-color: rgba(81, 81, 218, 0.763);
+  border: solid white 1px;
+}
+
 /* input */
 
 #city {
@@ -109,4 +135,7 @@ body {
  text-align: center;
  margin: 20px;
  border-radius: 10px;
+ color: black;
+ border:solid rgba(255, 255, 255, 0.858);
+ background-color: rgba(81, 81, 218, 0.763);
 }

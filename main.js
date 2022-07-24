@@ -9,89 +9,91 @@ let vientos;
 let tempDia;
 let city;
 
-async function getWeather(lat, lon) {
-  return new Promise((resolve, reject) => {
-    axios.get(`${WEATHER_URL}?lat=${lat}&lon=${lon}&appid=${API_KEY}`)
-      .then((response) => {
-        console.log(response);
-        resolve(response);
-        var temperatura;
-        var viento;
-        var dia;
-        temperatura = response.data.main.temp;
-        viento = response.data.wind.speed;
-        dia = response.data.weather[0].main;
-        refresHtml(temperatura,viento,dia);
-      });
-  });
+async function getCoordinates(region) {
+    return new Promise((resolve, reject) => {
+        axios.get(`${GEO_URL}/direct?q=${region}&appid=${API_KEY}`)
+            .then((response) => {
+                resolve(response);
+            });
+    });
 }
 
-function search() {
-  getCoordinates(city.value);
+async function getWeather(lat, lon) {
+    return new Promise((resolve, reject) => {
+        axios.get(`${WEATHER_URL}?lat=${lat}&lon=${lon}&appid=${API_KEY}`)
+            .then((response) => {
+                resolve(response);
+            });
+    });
+}
+
+async function search() {
+    const coordinates = await getCoordinates(city.value);
+    var dataRegions = coordinates.data[0];
+    const weather = await getWeather(dataRegions.lat, dataRegions.lon);
+    refresHtml(weather);
 }
 
 // button buscar otros 
 
 function searchOther() {
-  containerData.style.display="none";
-  contentId.style.display="block";
-}
-
-async function getCoordinates(region) {
-  return new Promise((resolve, reject) => {
-    axios.get(`${GEO_URL}/direct?q=${region}&appid=${API_KEY}`)
-      .then((response) => {
-        console.log(response);
-        resolve(response);
-        var dataRegions = response.data[0];
-        getWeather(dataRegions.lat, dataRegions.lon);
-      });
-  });
+    containerData.style.display = "none";
+    contentId.style.display = "block";
 }
 
 function main() {
-  info = document.getElementById('info');
-  dias = document.getElementById('dia');
-  vientos = document.getElementById('viento');
-  contentId = document.getElementById('contentId');
-  containerData = document.getElementById('container-data');
-  tempDia = document.getElementById('image-dia');
-  city = document.getElementById('city');
-  containerData.style.display="none";
+    info = document.getElementById('info');
+    dias = document.getElementById('dia');
+    vientos = document.getElementById('viento');
+    contentId = document.getElementById('contentId');
+    containerData = document.getElementById('container-data');
+    tempDia = document.getElementById('image-dia');
+    city = document.getElementById('city');
+    containerData.style.display = "none";
 }
 
-function refresHtml(temperatura,viento,dia) {
-  console.log(temperatura,viento,dia);
-  info.innerHTML = toCelsius(temperatura);
-  vientos.innerHTML = viento;
-  dias.innerHTML = dia;
-  contentId.style.display="none";
-  containerData.style.display="block";
-  if (dia == 'Clouds') {
-    tempDia.src = 'images/nube.png'
+function refresHtml(weather) {
+    var temperatura;
+    var viento;
+    var dia;
 
-  } else if (dia =='Clear') {
-    tempDia.src =  'images/sol.png'
- }
-   else if (dia =='Drizzle') {
-    tempDia.src = 'images/lluvia.png'
- }
-   else if (dia =='Rain') {
-    tempDia.src = 'images/lluvia.png'
- }
-   else if (dia =='Snow') {
-    tempDia.src = 'images/nieve.png'
- }
+    temperatura = weather.data.main.temp;
+    viento = weather.data.wind.speed;
+    dia = weather.data.weather[0].main;
 
-   else { dia == 'Default' 
-    tempDia.src = 'images/default'
-  } ;
+    console.log(temperatura, viento, dia);
+    info.innerHTML = toCelsius(temperatura);
+    vientos.innerHTML = viento;
+    dias.innerHTML = dia;
+    contentId.style.display = "none";
+    containerData.style.display = "block";
+    
+    if (dia == 'Clouds') {
+        tempDia.src = 'images/nube.png'
+
+    } else if (dia == 'Clear') {
+        tempDia.src = 'images/sol.png'
+    }
+    else if (dia == 'Drizzle') {
+        tempDia.src = 'images/lluvia.png'
+    }
+    else if (dia == 'Rain') {
+        tempDia.src = 'images/lluvia.png'
+    }
+    else if (dia == 'Snow') {
+        tempDia.src = 'images/nieve.png'
+    }
+
+    else {
+        dia == 'Default'
+        tempDia.src = 'images/default'
+    };
 }
 
 function toCelsius(kelvin) {
-  return Math.round(kelvin - 273.15);
+    return Math.round(kelvin - 273.15);
 }
 
 window.onload = () => {
-  main();
+    main();
 }
